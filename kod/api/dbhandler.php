@@ -1,7 +1,7 @@
 <?php error_reporting(-1);?>
-// id, name, password
-// id, name, creatorID, date, colors
+
 <?php
+    // php-fil för all kommunikation med databasen, getdb(), setdb(), deletePalette(), getPaletteByUser()
     $database = "database.json";
     $base = [
         "users" => [
@@ -13,7 +13,7 @@
     ];
 
     if(!file_exists($database)){
-      $json = json_encode($base);
-      file_put_contents($databs)
+      $json = json_encode($base, JSON_PRETTY_PRINT);
+      file_put_contents($database, $json);
     }
 ?>
