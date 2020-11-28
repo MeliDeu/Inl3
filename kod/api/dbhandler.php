@@ -11,4 +11,9 @@
         ],
         "palettes" => []
     ];
+
+    if(!file_exists($database)){
+      $json = json_encode($base);
+      file_put_contents($databs)
+    }
 ?>
