@@ -1,7 +1,9 @@
-<?php error_reporting(-1); ?>
 <?php
-  session_start();
-  include_once "../api/dbhandler";
+session_start();
+error_reporting(-1);
+?>
+<?php
+  include_once "../api/dbhandler.php";
 
   if(isset($_SESSION["username"])){
     header("Location: ../index.php");
@@ -14,15 +16,18 @@
 
   if(!$method === "POST"){
     http_response_code(405);
+    header("Location: ../index.php");
     exit();
   }
-$postUsername = $_POST["username"];
-$postPassword = $_POST["username"];
+  $postUsername = $_POST["username"];
+  $postPassword = $_POST["password"];
 
-foreach($users as $index => $user){
-  if($user["name"] === $postUsername && $user["password"] === $postPassword){
-    $_SESSION["username"]
+  foreach($users as $user){
+    if($user["name"] === $postUsername && $user["password"] === $postPassword){
+      $_SESSION["username"] = $postUsername;
+      header("Location: ../index.php");
+      exit();
+    }
   }
-}
 
 ?>

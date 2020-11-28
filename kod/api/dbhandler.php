@@ -29,7 +29,7 @@
         return $base;
     }
 
-    $json = json_decode($base, true);
+    $json = json_decode($database, true);
 
     if ($json === null) {
         return $base;

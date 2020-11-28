@@ -13,6 +13,8 @@
         <title>My Palettes</title> 
         <link rel="stylesheet" href="style.css">
         <link rel="icon shortcut" href="assetts/palette.png">
+        <link rel="preconnect" href="https://fonts.gstatic.com">
+        <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300;400;700&display=swap" rel="stylesheet">
     </head>
     <body>
         <main>
@@ -20,8 +22,8 @@
                 <div>MY PALETTES</div>
                 <div id="login">
                     <?php if(isset($_SESSION["username"])) {?>
-                        Logged in as <?=$_SESSION["username"]?> (<a href="logout.php"></a>)
-                    <?php } else { ?>
+                        Logged in as <?=$_SESSION["username"]?> (<a href="admin/logout.php">logout</a>)
+                    <?php } else {?>
                         <form id="loginForm" action="admin/login.php" method="POST">
                             <input type="text" name="username" placeholder="Username">
                             <input type="password" name="password" placeholder="Password">
