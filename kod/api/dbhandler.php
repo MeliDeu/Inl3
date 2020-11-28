@@ -16,4 +16,25 @@
       $json = json_encode($base, JSON_PRETTY_PRINT);
       file_put_contents($database, $json);
     }
+
+  function getDB(){
+    //hämta in globala variabler
+    global $database;
+    global $base;
+    // hämta filinnehåll
+    $data = file_get_contents($database);
+
+    //kontrollera innehåll..
+    if ($data === false) {
+        return $base;
+    }
+
+    $json = json_decode($base, true);
+
+    if ($json === null) {
+        return $base;
+    }
+    // skicka php-arrays från databasen
+    return $json;
+  }
 ?>
