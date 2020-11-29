@@ -17,24 +17,36 @@
         <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300;400;700&display=swap" rel="stylesheet">
     </head>
     <body>
-        <main>
-            <header>
-                <div>MY PALETTES</div>
-                <div id="login">
-                    <?php if(isset($_SESSION["username"])) {?>
-                        Logged in as <?=$_SESSION["username"]?> (<a href="admin/logout.php">logout</a>)
-                    <?php } else {?>
-                        <form id="loginForm" action="admin/login.php" method="POST">
-                            <input type="text" name="username" placeholder="Username">
-                            <input type="password" name="password" placeholder="Password">
-                            <button type="submit">login</button>
-                        </form>
-                    <?php } ?>
+        <header>
+            <div id="rubrik">
+                <h1>MY PALETTES</h1>
+            </div>
+            <div id="login">
+                <?php if(isset($_SESSION["username"])) {?>
+                    Logged in as <?=$_SESSION["username"]?> (<a href="admin/logout.php">logout</a>)
+                <?php } else {?>
+                    <form id="loginForm">
+                        <input type="text" id="username" placeholder="Username">
+                        <input type="password" id="password" placeholder="Password">
+                        <button id="submit">login</button>
+                    </form>
+                <?php } ?>
+            </div>
+        </header>
+        <div id="palettes">
+            <div id="userPalettes">
+                <div id="controls">
+                    <button>Add new Palette</button>
+                    <div id="sortBtns">
+                        <p><a href="#">By Name</a> | <a href="#">By Date</a></p>
+                    </div>
                 </div>
-            </header>
-            <div id="palettes"></div>
-        </main>
+            </div>
+            <div id="allPalettes"></div>
+        </div>
         <script src="scripts/jquery-3.4.1.min.js"></script>
+        <script src="scripts/data.js"></script>
+        <script src="scripts/classes.js"></script>
         <script src="scripts/functions.js"></script>
         <script src="scripts/ajax.js"></script>
     </body>
