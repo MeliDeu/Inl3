@@ -38,7 +38,7 @@ error_reporting(-1);
         </header>
         <div id="palettes">
             <div id="userPalettes">
-                <div id="controls">
+                <div id="controls" class="controls">
                     <?php if(isset($_SESSION["username"])) {?>
                         <button>Add new Palette</button>
                         <div id="sortBtns">
@@ -48,9 +48,10 @@ error_reporting(-1);
                         <p>Log in to see your palettes</p>
                     <?php } ?>
                 </div>
+                <div id="ownPalettes"></div>
             </div>
             <div id="allPalettes">
-                <div id="showAll">
+                <div id="showAll" class="controls">
                     <p>Palettes by other users</p>
                 </div>
                 <div id="allUsersPalettes"></div>

@@ -26,6 +26,11 @@ h1 {
     font-size: 40px;
 }
 
+#login {
+    display: flex;
+    align-items: flex-end;
+}
+
 #rubrik {
     display: flex;
     align-items: center;
@@ -71,11 +76,14 @@ button:hover {
     flex-basis: 33%;
 }
 
-#controls {
+.controls {
     display: flex;
-    justify-content: space-between;
     align-items: center;
     height: 10%;
+}
+
+#controls {
+    justify-content: space-between;
 }
 
 button {

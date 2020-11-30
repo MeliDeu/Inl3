@@ -37,6 +37,7 @@
     // skicka php-arrays från databasen
     return $json;
   }
+
   function sendError($statusCode = 400, $error = "Something went wrong. Call Melanie.") {
     //placera rätt error-code
     http_response_code($statusCode);
@@ -47,5 +48,5 @@
     // skicka vår lilla brevduva (som är ett error-meddelande som vi sedan kan ta emot i JS)
     echo $json;
     exit();
-}
+  }
 ?>

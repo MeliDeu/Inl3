@@ -43,6 +43,10 @@ class PaletteSaved extends PaletteBase {
         let trashCan = $("<button>").addClass("delete");
         let icon = $("<img>").attr("src", "../assetts/trash.svg");
 
+        trashCan.append(icon);
+        //appenda till basDiv? -- går ej för då får man hela diven 
+        //leta upp infoboxen med respektive id, och appenda direkt i den // this eller super i detta fall?
+        $(`#pal_${this.id}`).find(".infoBox").append(datumDiv, trashCan);
         
     }
 }
@@ -54,6 +58,7 @@ class PaletteOthers extends PaletteBase {
         this.creator = data.creator;
     }
     htmlRender() {
+        let basDiv = super.htmlRender();
         //lägger till elementet som visar användaren
         //det som ska läggas till här: creator (a-länk, där man sedan enbart hämtar in paletterna från samma creator)
         //i data finn endast id.. så man måste loopar igenom alla users och om userID == då hämta namnet från respektive element i arrayn
