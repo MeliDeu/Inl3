@@ -4,12 +4,12 @@ error_reporting(-1);
 ?>
 <?php
   include_once "../api/dbhandler.php";
-
   
-  if(isset($_SESSION["username"])){
-    header("Location: ../index.php");
-    exit();
-  }
+    if(isset($_SESSION["username"])){
+      header("Location: ../index.php");
+      exit();
+    }
+
   $db = getDB();
   $users = $db["users"];
   $method = $_SERVER["REQUEST_METHOD"];
@@ -32,6 +32,7 @@ error_reporting(-1);
   foreach($db["users"] as $user){
     if($user["name"] === $username && $user["password"] === $password){
       $_SESSION["username"] = $username;
+      $_SESSION["userID"] = $user["id"];
       http_response_code(200);
       header("Location: ../index.php");
       exit();

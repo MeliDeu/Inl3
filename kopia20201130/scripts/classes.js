@@ -41,13 +41,13 @@ class PaletteSaved extends PaletteBase {
         let basDiv = super.htmlRender();
         let datumDiv = $("<div>").html(this.date);
         let trashCan = $("<button>").addClass("delete");
-        let icon = $("<img>").attr("src", "../assetts/trash.svg");
+        let icon = $("<img>").attr("src", "assetts/icons/trash.svg");
 
         trashCan.append(icon);
         //appenda till basDiv? -- går ej för då får man hela diven 
         //leta upp infoboxen med respektive id, och appenda direkt i den // this eller super i detta fall?
-        $(`#pal_${this.id}`).find(".infoBox").append(datumDiv, trashCan);
-        
+        basDiv.find(".infoBox").append(datumDiv, trashCan);
+        return basDiv;
     }
 }
 
@@ -55,19 +55,23 @@ class PaletteSaved extends PaletteBase {
 class PaletteOthers extends PaletteBase {
     constructor(data) {
         super(data);
-        this.creator = data.creator;
+        this.creator = data.creatorID;
     }
     htmlRender() {
         let basDiv = super.htmlRender();
         //lägger till elementet som visar användaren
         //det som ska läggas till här: creator (a-länk, där man sedan enbart hämtar in paletterna från samma creator)
         //i data finn endast id.. så man måste loopar igenom alla users och om userID == då hämta namnet från respektive element i arrayn
+        let creatorInfo = $("<a>").attr("href", "#").html(`(${this.creator})`);
+
+        basDiv.find(".namnBox").append(creatorInfo);
+        return basDiv;
     }
 }
 
 //för att testa, testObj ligger i data.. sedan loopa igenom resurs såklart, 
-// palettes.push(new PaletteBase(testObj));
+testPalettes.push(new PaletteOthers(testObj));
 
-// function appendIt() {
-//     $("#allPalettes").append(palettes[0].htmlRender());
-// }
+function appendIt() {
+    $("#allUsersPalettes").append(testPalettes[0].htmlRender());
+}

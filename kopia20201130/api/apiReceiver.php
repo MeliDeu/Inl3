@@ -11,7 +11,12 @@
 
     //get whole DB and push into local array in data.js
     if($httpMethod === "GET") {
-
+        $db = getDB();
+        $json = json_encode($db);
+        header("Content-Type: application/json");
+        http_response_code(200);
+        echo $json;
+        exit();
     }
 
     //lägga till i databasen (under Palettes)

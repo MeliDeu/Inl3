@@ -5,6 +5,10 @@ error_reporting(-1);
 
 <?php
     include_once "api/dbhandler.php";
+    $db = "api/database.json";
+    if(!file_exists($db)){
+        createDB();
+    }
 ?>
 
 <!DOCTYPE html>
@@ -25,7 +29,7 @@ error_reporting(-1);
             </div>
             <div id="login">
                 <?php if(isset($_SESSION["username"])) {?>
-                    Logged in as <?=$_SESSION["username"]?> (<a href="admin/logout.php">logout</a>)
+                    Logged in as <span class="loggedInUser" id="A<?=$_SESSION["userID"]?>"><?=$_SESSION["username"]?></span> (<a href="admin/logout.php">logout</a>)
                 <?php } else {?>
                     <span id="message"></span>
                     <form id="loginForm" action="admin/login.php" method="POST">
@@ -71,6 +75,7 @@ error_reporting(-1);
         <script src="scripts/data.js"></script>
         <script src="scripts/classes.js"></script>
         <script src="scripts/functions.js"></script>
+        <script src="scripts/eriksKod.js"></script>
         <script src="scripts/ajax.js"></script>
        
     </body>

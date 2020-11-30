@@ -2,7 +2,8 @@
 
 <?php
   // php-fil för all kommunikation med databasen, getdb(), setdb(), deletePalette(), getPaletteByUser()
-  $database = "database.json";
+  // $database = "./inl3/api/database.json";
+  $database = "../api/database.json";
   $base = [
       "users" => [
           ["id" => 1, "name" => "melanie", "password" => "12345"],
@@ -12,9 +13,11 @@
       "palettes" => []
   ];
 
-  if(!file_exists($database)){
-    $json = json_encode($base, JSON_PRETTY_PRINT);
-    file_put_contents($database, $json);
+  function createDB(){
+      global $base;
+      $database = "api/database.json";
+      $json = json_encode($base, JSON_PRETTY_PRINT);
+      file_put_contents($database, $json);
   }
 
   function getDB(){
@@ -29,13 +32,13 @@
         return $base;
     }
 
-    $json = json_decode($database, true);
+    $data = json_decode($database, true);
 
-    if ($json === null) {
+    if ($data === null) {
         return $base;
     }
     // skicka php-arrays från databasen
-    return $json;
+    return $data;
   }
 
   function sendError($statusCode = 400, $error = "Something went wrong. Call Melanie.") {
