@@ -1,45 +1,42 @@
 <?php
-  error_reporting(-1);
-  session_start();
+session_start();
+error_reporting(-1);
+?>
+<?php
   include_once "../api/dbhandler.php";
+
   
   if(isset($_SESSION["username"])){
     header("Location: ../index.php");
     exit();
   }
-  $post = file_get_contents("php://input");
-  $database = getDB();
-  $users = $database["users"];
+  $db = getDB();
+  $users = $db["users"];
   $method = $_SERVER["REQUEST_METHOD"];
-  $contentType = $_SERVER["CONTENT_TYPE"];
 
   if($method !== "POST"){
-    http_response_code(405);
-    echo "fel";
+    // sendError(405, "Method not allowed.");
     header("Location: ../index.php");
     exit();
   }
 
-  if($contentType !== "application/json"){
-    http_response_code(400);
-    echo $contentType;
-    echo $post;
+  $username = $_POST["username"];
+  $password = $_POST["password"];
+
+  if($username === "" || $password === ""){
+    // sendError(400, "Both fields must be filled");
+    header("Location: ../index.php?error=1");
     exit();
   }
-  $loginData = json_decode($post, true);
-  echo $post;
-  $loginUsername = $loginData["username"];
-  $loginPassword = $loginData["password"];
 
-  foreach($users as $user){
-    if($user["name"] === $loginUsername && $user["password"] === $loginPassword){
-      $_SESSION["username"] = $loginUsername;
+  foreach($db["users"] as $user){
+    if($user["name"] === $username && $user["password"] === $password){
+      $_SESSION["username"] = $username;
+      http_response_code(200);
       header("Location: ../index.php");
       exit();
-    } else {
-      http_response_code(400);
-      exit();
-    }
+    }  
   }
-
+  // sendError(400, "Incorrect username or password");
+  header("Location: ../index.php?error=2");
 ?>

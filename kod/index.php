@@ -36,13 +36,22 @@
         <div id="palettes">
             <div id="userPalettes">
                 <div id="controls">
+                    <?php if(isset($_SESSION["username"])) {?>
                     <button>Add new Palette</button>
                     <div id="sortBtns">
                         <p><a href="#">By Name</a> | <a href="#">By Date</a></p>
                     </div>
+                    <?php } else {?>
+                        <p>Log in to see your palettes</p>
+                    <?php } ?>
                 </div>
             </div>
-            <div id="allPalettes"></div>
+            <div id="allPalettes">
+                <div id="showAll">
+                    <p>Palettes by other users</p>
+                </div>
+                <div id="allUsersPalettes"></div>
+            </div>
         </div>
         <script src="scripts/jquery-3.4.1.min.js"></script>
         <script src="scripts/data.js"></script>

@@ -38,6 +38,12 @@ class PaletteSaved extends PaletteBase {
         //lägger till elementet som visar datum
         //det andra skapas redan i palettebase
         //det som ska läggas till här: datum (span) och soptunna
+        let basDiv = super.htmlRender();
+        let datumDiv = $("<div>").html(this.date);
+        let trashCan = $("<button>").addClass("delete");
+        let icon = $("<img>").attr("src", "../assetts/trash.svg");
+
+        
     }
 }
 
