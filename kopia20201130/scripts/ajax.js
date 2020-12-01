@@ -5,7 +5,7 @@
 //när sidan laddas, hämtas alla paletter från databasen och för varje element appendas det // skapas en ny instans och htmlRender() anropas --> in i lokal array
 
 //GET-förfrågan för att hämta alla users och paletter för att sedan pusha in i respektive globala variabel
-let allReq = new Request("../api/apiReceiver.php");
+let allReq = new Request("api/apiReceiver.php");
 fetch(allReq)
   .then(resp => resp.json())
   .then(info => {
@@ -16,14 +16,6 @@ fetch(allReq)
 
 //när inloggad --> vänster #ownPalettes: visar alla paletter som har samma ownerID --> anropar paletteSaved
 // höger #allUsersPalettes: visar alla paletter som INTE har samma ownerID som inloggad user --> anropar PaletteOthers
-
-//on klick (add) --> ny request till både Eriks API och färgAPI, sedan läggs de ihop till ett objekt som skickas till databasen med POST (även annan info) --> nytt objekt även instoppat i arrayn --> appendas enl.sortfunktionen med animation
-
-// länkar
-//"http://colormind.io/api/"
-
-//https://erikpineiro.se/dbp/nouns/api.php
-
 
 
 //anropas på click on "lägga till ny palette"
@@ -75,8 +67,18 @@ function getPalette(){
             nyPalette.name = word.data;
             console.log(nyPalette);
             palettes.push(nyPalette);
+            const nyPostReq = new Request("api/apiReceiver.php", {
+              method: "POST",
+              body: JSON.stringify(nyPalette),
+              headers: {"Content-type": "application/json; charset=UTF-8"},
+            });
+            fetch(nyPostReq)
+              .then(res => res.json())
+              .then(resurs => {
+                console.log(resurs);
+              })
           });
-    })
+    });
 }
 
 //on click på addPalette --> fetcha, sätta ihop nytt objekt, in i arrayn och posta upp till databasen

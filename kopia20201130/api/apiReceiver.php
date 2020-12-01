@@ -21,7 +21,18 @@
 
     //lägga till i databasen (under Palettes)
     if($httpMethod === "POST") {
-        
+        //hämta in datan som skickas med post
+        //skriva till databasen med respektive nyckel
+        $db = getDB();
+        $json = json_decode($db);
+
+        $data = $_POST;
+        $json["palettes"][] = $data;
+
+        setDB($json);
+        header("Content-Type: application/json");
+        http_response_code(203);
+        exit();
     }
 
     //tar bort respektive palette från databasen (görs med hjälp av id:n)

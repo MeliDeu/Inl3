@@ -41,6 +41,12 @@
     return $data;
   }
 
+  function setDB($newDB){
+    $db_file = "api/database.json";
+    $encoded_DB = json_encode($newDB, JSON_PRETTY_PRINT);
+    file_put_contents($db_file, $encoded_DB);
+  }
+
   function sendError($statusCode = 400, $error = "Something went wrong. Call Melanie.") {
     //placera rätt error-code
     http_response_code($statusCode);
