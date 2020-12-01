@@ -46,7 +46,7 @@ error_reporting(-1);
                     <?php if(isset($_SESSION["username"])) {?>
                         <button id="addPalette"><img src="assetts/icons/add.svg">Add new Palette</button>
                         <div id="sortBtns">
-                        <p><a href="#">By Name</a> | <a href="#">By Date</a></p>
+                        <p><a id="byName" href="#">By Name</a> | <a id="byDate" href="#">By Date</a></p>
                     </div>
                     <?php } else {?>
                         <p>Log in to see your palettes</p>

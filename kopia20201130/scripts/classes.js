@@ -94,7 +94,6 @@ class PaletteOthers extends PaletteBase {
                     let nPal = new PaletteOthers(palette);
                     $("#allUsersPalettes").append(nPal.htmlRender());
                 }
-                
             });
             
         });

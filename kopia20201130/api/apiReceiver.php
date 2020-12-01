@@ -40,7 +40,7 @@
         //tror problem med getDB();
 
         //hämta databas
-        $database = file_get_contents("database.json");
+        $database = file_get_contents($file);
         $db = json_decode($database, true);
 
         $palettes = $db["palettes"];

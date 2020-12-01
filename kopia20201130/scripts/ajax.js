@@ -13,6 +13,7 @@ fetch(allReq)
   .then(info => {
     allUsers = info.users.map(user => user);
     palettes = info.palettes.map(palette => palette);
+    sortSwitch();
 
     if(!loggedIn){
       palettes.forEach(palette => {
@@ -32,7 +33,6 @@ fetch(allReq)
         }
       });
     }
-
   })
 
 //när inloggad --> vänster #ownPalettes: visar alla paletter som har samma ownerID --> anropar paletteSaved
@@ -41,67 +41,67 @@ fetch(allReq)
 
 //anropas på click on "lägga till ny palette"
 function getPalette(){
-    const url = "http://colormind.io/api/";
-    //krävs av API:n att skickas med
-    let data = {
-        model: "default"
+  const url = "http://colormind.io/api/";
+  //krävs av API:n att skickas med
+  let data = {
+      model: "default"
+  }
+
+  let nRequest = new Request(url, {
+      method: "POST",
+      body: JSON.stringify(data)
+  });
+
+  //hämtar in ID för nuvarande inloggad user, som har sparats som ID i span (iom att id inte kan börja med en siffra, så plockas bort det första tecknet)
+  let currentUser = $("span.loggedInUser").attr("id");
+  let currentUserID = currentUser.substring(1, currentUser.length);
+
+  let highestID = 0;
+  palettes.forEach(palette => {
+    if (palette["id"] > highestID) {
+      highestID = palette["id"];
     }
+  });
 
-    let nRequest = new Request(url, {
-        method: "POST",
-        body: JSON.stringify(data)
-    });
+  let nyPalette = {
+      id: highestID+1,
+      name: "",
+      colors: [],
+      creatorID: currentUserID,
+      date: now
+  };
 
-    //hämtar in ID för nuvarande inloggad user, som har sparats som ID i span (iom att id inte kan börja med en siffra, så plockas bort det första tecknet)
-    let currentUser = $("span.loggedInUser").attr("id");
-    let currentUserID = currentUser.substring(1, currentUser.length);
-
-    let highestID = 0;
-    palettes.forEach(palette => {
-      if (palette["id"] > highestID) {
-        highestID = palette["id"];
-      }
-    });
-
-    let nyPalette = {
-        id: highestID+1,
-        name: "",
-        colors: [],
-        creatorID: currentUserID,
-        date: now
-    };
-
-    fetch(nRequest)
-    .then(res => res.json())
-    .then(resurs => {
-        //här hämtar vi in paletten, men vi måste göra ytterligare en fetch till eriks API för att få ett namn, tillsammans med paletten, datum mm ska det sedan sättas ihop till ett objekt och postas till DB
-        //arrayn med färgerna ligger i key:n result :)
-        resurs.result.forEach(color => {
-          nyPalette.colors.push(color); 
-        });
-        
-        const wordRequest = new Request("https://erikpineiro.se/dbp/nouns/api.php");
-        fetch(wordRequest)
-          .then(resp => resp.json())
-          .then(word => {
-            //kommer med property "data"
-            nyPalette.name = word.data;
-            console.log(nyPalette);
-            palettes.push(nyPalette);
-            const nyPostReq = new Request("api/apiReceiver.php", {
-              method: "POST",
-              body: JSON.stringify(nyPalette),
-              headers: {"Content-type": "application/json; charset=UTF-8"},
-            });
-            fetch(nyPostReq)
-              .then(res => res.json())
-              .then(resurs => {
-                console.log(resurs);
-                let nPal = new PaletteSaved(nyPalette);
-                $("#ownPalettes").append(nPal.htmlRender());
-              })
+  fetch(nRequest)
+  .then(res => res.json())
+  .then(resurs => {
+      //här hämtar vi in paletten, men vi måste göra ytterligare en fetch till eriks API för att få ett namn, tillsammans med paletten, datum mm ska det sedan sättas ihop till ett objekt och postas till DB
+      //arrayn med färgerna ligger i key:n result :)
+      resurs.result.forEach(color => {
+        nyPalette.colors.push(color); 
+      });
+      
+      const wordRequest = new Request("https://erikpineiro.se/dbp/nouns/api.php");
+      fetch(wordRequest)
+        .then(resp => resp.json())
+        .then(word => {
+          //kommer med property "data"
+          nyPalette.name = word.data;
+          palettes.push(nyPalette);
+          const nyPostReq = new Request("api/apiReceiver.php", {
+            method: "POST",
+            body: JSON.stringify(nyPalette),
+            headers: {"Content-type": "application/json; charset=UTF-8"},
           });
-    });
+          fetch(nyPostReq)
+            .then(res => res.json())
+            .then(resurs => {
+              let nPal = new PaletteSaved(nyPalette);
+              if(sortSwitcher == true){
+                $("#ownPalettes").prepend(nPal.htmlRender());
+              }
+            });
+        });
+  });
 }
 
 //on click på addPalette --> fetcha, sätta ihop nytt objekt, in i arrayn och posta upp till databasen
