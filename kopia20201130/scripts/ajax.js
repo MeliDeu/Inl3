@@ -97,6 +97,8 @@ function getPalette(){
               .then(res => res.json())
               .then(resurs => {
                 console.log(resurs);
+                let nPal = new PaletteSaved(nyPalette);
+                $("#ownPalettes").append(nPal.htmlRender());
               })
           });
     });
