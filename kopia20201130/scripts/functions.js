@@ -2,6 +2,7 @@
 
 "use strict";
 //script för deklarering av funktioner
+//feedback for user in loginfields
 function colorInputs(color){
   $("input").css("background-color", color);
 }

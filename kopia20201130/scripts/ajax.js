@@ -39,11 +39,22 @@ function getPalette(){
         body: JSON.stringify(data)
     });
 
+    //hämtar in ID för nuvarande inloggad user, som har sparats som ID i span (iom att id inte kan börja med en siffra, så plockas bort det första tecknet)
+    let currentUser = $("span.loggedInUser").attr("id");
+    let currentUserID = currentUser.substring(1, currentUser.length);
+
+    let highestID = 0;
+    palettes.forEach(palette => {
+      if (palette["id"] > highestID) {
+        highestID = palette["id"];
+      }
+    });
+
     let nyPalette = {
-        id: "",
+        id: highestID+1,
         name: "",
         colors: [],
-        creatorID: findCreatorIDbyName(allUsers, $("")),
+        creatorID: currentUserID,
         date: now
     };
 
@@ -61,12 +72,14 @@ function getPalette(){
           .then(resp => resp.json())
           .then(word => {
             //kommer med property "data"
-            // console.log(word);
             nyPalette.name = word.data;
             console.log(nyPalette);
+            palettes.push(nyPalette);
           });
     })
 }
 
-
-getPalette();
+//on click på addPalette --> fetcha, sätta ihop nytt objekt, in i arrayn och posta upp till databasen
+$("#addPalette").on("click", function(){
+  getPalette();
+})

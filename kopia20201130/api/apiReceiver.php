@@ -21,7 +21,7 @@
 
     //lägga till i databasen (under Palettes)
     if($httpMethod === "POST") {
-
+        
     }
 
     //tar bort respektive palette från databasen (görs med hjälp av id:n)
