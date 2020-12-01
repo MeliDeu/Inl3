@@ -1,6 +1,5 @@
 "use strict";
 
-"use strict";
 //script för deklarering av funktioner
 //feedback for user in loginfields
 function colorInputs(color){
@@ -39,14 +38,3 @@ if (data === 1){
   $("#message").html("Wrong username or password");
 }
 
-function findCreatorIDbyName(arr, name) {
-  //när sidan laddas - fetchas hela databasen och pushas in i local array i data.js
-  //loopa igenom alla users, om name == username return element.id;
-  //funktionen anropas när nytt palette-objekt ska skapas på "lägga till"-click, då ownerID ska vara med som property
-  arr.forEach(user => {
-    if(user.name == name){
-      return user.id;
-    }
-  });
-
-}

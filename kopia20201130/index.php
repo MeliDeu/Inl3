@@ -69,13 +69,20 @@ error_reporting(-1);
         } else {
             echo 0;
         } ?>;
-        
+        var loggedIn = <?php
+        if(isset($_SESSION["username"])){
+            echo $_SESSION["userID"];
+            
+        } else {
+            echo 0;
+        }
+        ?>;
         </script>
         <script src="scripts/jquery-3.4.1.min.js"></script>
         <script src="scripts/data.js"></script>
-        <script src="scripts/classes.js"></script>
-        <script src="scripts/functions.js"></script>
         <script src="scripts/eriksKod.js"></script>
+        <script src="scripts/functions.js"></script>
+        <script src="scripts/classes.js"></script>
         <script src="scripts/ajax.js"></script>
        
     </body>

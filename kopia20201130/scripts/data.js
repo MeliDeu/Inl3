@@ -5,12 +5,3 @@ let loggedInUser = false;
 //måste hämta in allaUsers för att sedan kunna köra igenom dem när html-elementen skapas, då vi endast har user ID
 let allUsers = [];
 let palettes = [];
-let testPalettes = [];
-
-let testObj = {
-  id: 1,
-  name: "test",
-  colors: [[214,78,69],[247,242,163],[201,216,147],[57,141,112],[62,80,64]],
-  date: "20.11.30",
-  creatorID: 1
-}

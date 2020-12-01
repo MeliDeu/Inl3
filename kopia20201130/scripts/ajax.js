@@ -4,14 +4,35 @@
 
 //när sidan laddas, hämtas alla paletter från databasen och för varje element appendas det // skapas en ny instans och htmlRender() anropas --> in i lokal array
 
-//GET-förfrågan för att hämta alla users och paletter för att sedan pusha in i respektive globala variabel
+
 let allReq = new Request("api/apiReceiver.php");
 fetch(allReq)
-  .then(resp => resp.json())
+  .then(resp => {
+    return resp.json()
+  })
   .then(info => {
-    // console.log(info);
-    allUsers = info.users.map(user => user)
-    palettes = info.palettes.map(palette => palette)
+    allUsers = info.users.map(user => user);
+    palettes = info.palettes.map(palette => palette);
+
+    if(!loggedIn){
+      palettes.forEach(palette => {
+        let nPal = new PaletteOthers(palette);
+        $("#allUsersPalettes").append(nPal.htmlRender());
+      });
+    } else {
+      //filtrera hela palettes: vänster ("ownPalettes") visa endast de som har samma ownerID som inloggad person 
+      // höger ("allUsersPalettes") visa alla andra än den inlaggade personen
+      palettes.forEach(palette => {
+        if(loggedIn == palette.creatorID){
+          let nPal = new PaletteSaved(palette);
+          $("#ownPalettes").append(nPal.htmlRender());
+        } else {
+          let nPal = new PaletteOthers(palette);
+          $("#allUsersPalettes").append(nPal.htmlRender());
+        }
+      });
+    }
+
   })
 
 //när inloggad --> vänster #ownPalettes: visar alla paletter som har samma ownerID --> anropar paletteSaved

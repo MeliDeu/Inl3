@@ -3,7 +3,7 @@ session_start();
 error_reporting(-1);
 ?>
 <?php
-  include_once "../api/dbhandler.php";
+  include_once "api/dbhandler.php";
   
     if(isset($_SESSION["username"])){
       header("Location: ../index.php");

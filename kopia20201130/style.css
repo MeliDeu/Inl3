@@ -9,6 +9,7 @@
 body {
     background-color: rgb(70, 70, 70);
     height: 100vh;
+    width:100vw;
 }
 
 header {
@@ -57,6 +58,7 @@ button:hover {
     height: 85%;
     display: flex;
     justify-content: space-between;
+    width: 100vw;
 }
 
 #palettes > div {
@@ -65,12 +67,12 @@ button:hover {
 }
 
 #userPalettes {
-    flex-basis: 65%;
+    flex-basis: 68%;
 }
 
 #ownPalettes {
     display: grid;
-    grid-template-columns: 45% 45%;
+    grid-template-columns: 30vw 30vw;
     grid-auto-rows: 10vw;
     gap: 15px;
     overflow-y: scroll;
@@ -83,6 +85,15 @@ button:hover {
     height: 90%;
 }
 
+#allUsersPalettes .outerShell {
+    margin-top: 15px;
+    height: 10vw;
+}
+
+#allUsersPalettes .outerShell:first-child {
+    margin-top: 0;
+}
+
 .outerShell {
     border: 1px solid lightgrey;
     border-radius: 15px;
@@ -91,6 +102,10 @@ button:hover {
     -ms-border-radius: 15px;
     -o-border-radius: 15px;
     padding: 5px;
+}
+
+.outerShell a {
+    margin-left: 5px;
 }
 
 .infoBox {
