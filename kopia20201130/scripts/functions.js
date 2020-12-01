@@ -38,3 +38,4 @@ if (data === 1){
   $("#message").html("Wrong username or password");
 }
 
+

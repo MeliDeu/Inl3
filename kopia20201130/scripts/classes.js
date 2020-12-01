@@ -85,8 +85,19 @@ class PaletteOthers extends PaletteBase {
         //det som ska läggas till här: creator (a-länk, där man sedan enbart hämtar in paletterna från samma creator)
         //i data finn endast id.. så man måste loopar igenom alla users och om userID == då hämta namnet från respektive element i arrayn
         let creatorEl = allUsers.find(user => user.id == this.creator);
-        
-        let creatorInfo = $("<a>").attr("href", "#").html(`(${creatorEl.name})`);
+        let thisCreator = this.creator;
+        let creatorInfo = $("<a>").attr("href", "#").addClass(`B${this.creator}`).html(`(${creatorEl.name})`).on("click", function(e){
+            $("#showAll p").html(`Palettes by ${creatorEl.name} <br> <a href="index.php">(Show palettes by all other users)</a>`);
+            $("#allUsersPalettes").empty();
+            palettes.forEach(palette => {
+                if (palette.creatorID == thisCreator) {
+                    let nPal = new PaletteOthers(palette);
+                    $("#allUsersPalettes").append(nPal.htmlRender());
+                }
+                
+            });
+            
+        });
 
         basDiv.find(".namnBox").append(creatorInfo);
         return basDiv;
