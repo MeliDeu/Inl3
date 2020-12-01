@@ -44,7 +44,7 @@ error_reporting(-1);
             <div id="userPalettes">
                 <div id="controls" class="controls">
                     <?php if(isset($_SESSION["username"])) {?>
-                        <button>Add new Palette</button>
+                        <button><img src="assetts/icons/add.svg">Add new Palette</button>
                         <div id="sortBtns">
                         <p><a href="#">By Name</a> | <a href="#">By Date</a></p>
                     </div>

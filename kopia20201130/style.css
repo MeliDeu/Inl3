@@ -54,7 +54,7 @@ button:hover {
 }
 
 #palettes {
-    height: 90%;
+    height: 85%;
     display: flex;
     justify-content: space-between;
 }
@@ -68,8 +68,67 @@ button:hover {
     flex-basis: 65%;
 }
 
+#ownPalettes {
+    display: grid;
+    grid-template-columns: 45% 45%;
+    grid-auto-rows: 10vw;
+    gap: 15px;
+    overflow-y: scroll;
+    height: 90%;
+    overflow-x: hidden;
+}
+
+#allUsersPalettes {
+    overflow-y: scroll;
+    height: 90%;
+}
+
+.outerShell {
+    border: 1px solid lightgrey;
+    border-radius: 15px;
+    -webkit-border-radius: 15px;
+    -moz-border-radius: 15px;
+    -ms-border-radius: 15px;
+    -o-border-radius: 15px;
+    padding: 5px;
+}
+
+.infoBox {
+    height: 40%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.namnBox {
+    display: flex;
+    flex-basis: 40%;
+}
+
+.colorCircle {
+    height: 60%;
+    display: flex;
+    align-items: center;
+    /* justify-content: space-between; */
+}
+
+.colorCircle div {
+    border-radius: 50%;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    -ms-border-radius: 50%;
+    -o-border-radius: 50%;
+    flex-basis: 4vw;
+    height: 4vw;
+}
+
+.colorCircle div:nth-of-type(2){margin-left: 3px;}
+.colorCircle div:nth-of-type(3){margin-left: 3px;}
+.colorCircle div:nth-of-type(4){margin-left: 3px;}
+.colorCircle div:nth-of-type(5){margin-left: 3px;}
+
 #allPalettes {
-    flex-basis: 33%;
+    flex-basis: 30%;
 }
 
 .controls {
@@ -93,6 +152,21 @@ input {
 #palettes button {
     height: 50%;
     flex-basis: 20%;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+#palettes button img {
+    height: 70%;
+}
+
+.delete {
+    height: 80%;
+}
+
+.delete:hover {
+    cursor: pointer;
 }
 
 #message {

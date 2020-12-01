@@ -39,14 +39,13 @@ class PaletteSaved extends PaletteBase {
         //det andra skapas redan i palettebase
         //det som ska läggas till här: datum (span) och soptunna
         let basDiv = super.htmlRender();
-        let datumDiv = $("<div>").html(this.date);
-        let trashCan = $("<button>").addClass("delete");
-        let icon = $("<img>").attr("src", "assetts/icons/trash.svg");
+        let datumDiv = $("<div>").html(`, ${this.date}`);
+        let trashCan = $("<img>").attr("src", "assetts/icons/trash.svg").addClass("delete");
 
-        trashCan.append(icon);
         //appenda till basDiv? -- går ej för då får man hela diven 
         //leta upp infoboxen med respektive id, och appenda direkt i den // this eller super i detta fall?
-        basDiv.find(".infoBox").append(datumDiv, trashCan);
+        basDiv.find(".namnBox").append(datumDiv);
+        basDiv.find(".infoBox").append(trashCan);
         return basDiv;
     }
 }
@@ -70,8 +69,10 @@ class PaletteOthers extends PaletteBase {
 }
 
 //för att testa, testObj ligger i data.. sedan loopa igenom resurs såklart, 
-testPalettes.push(new PaletteOthers(testObj));
+testPalettes.push(new PaletteSaved(testObj));
 
 function appendIt() {
-    $("#allUsersPalettes").append(testPalettes[0].htmlRender());
+    $("#ownPalettes").append(testPalettes[0].htmlRender());
 }
+
+appendIt();
