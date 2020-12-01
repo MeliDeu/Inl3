@@ -41,37 +41,32 @@ class PaletteSaved extends PaletteBase {
         let basDiv = super.htmlRender();
         let datumDiv = $("<div>").html(`, ${getFormattedDateFromText(this.date)}`);
         let thisID = this.id;
-        let trashCan = $("<img>").attr("src", "assetts/icons/trash.svg").addClass("delete").click();
-        // let trashCan = $("<img>").attr("src", "assetts/icons/trash.svg").addClass("delete").on("click", function(){
-            //hitta elementet i gridden och ta bort hela outershell,
-            // console.log(thisID);
-            // // $("#ownPalettes").find(`.outerShell#pal_${thisID}`).css("display", "none");
-            // $("#ownPalettes").find(`.outerShell#pal_${thisID}`).remove();
-            // //hitta elementet i arrayn och splicea 
-            // palettes.forEach(palette => {
-            //     if (palette.id == thisID) {
-            //         palettes.splice(palette, 1);
-            //     }
-            // });
-            // //delete till API
-            // let delID = {id: thisID};
-            // let delReq = ("api/apiReceiver.php",{
-            //     method: "DELETE",
-            //     body: JSON.stringify(delID),
-            //     headers: {"Content-Type":"application/json; charset=UTF-8"}
-            // });
-            // console.log(delReq);
-            // fetch(delReq)
-            //     .then(resp => resp.json())
-            //     .then(deleted => {
-            //         console.log(deleted);
-                // })
+        let trashCan = $("<img>").attr("src", "assetts/icons/trash.svg").addClass("delete").on("click", function(){
+            // hitta elementet i gridden och ta bort hela outershell,
+            console.log(thisID);
+            // $("#ownPalettes").find(`.outerShell#pal_${thisID}`).css("display", "none");
+            $("#ownPalettes").find(`.outerShell#pal_${thisID}`).remove();
+            //hitta elementet i arrayn och splicea 
+            
+            //OMG IT FUCKING WEEERKS BIYAAATCH
+            palettes = palettes.filter(palette => palette.id !== thisID);
+            //delete till API
+            let delID = {"id": thisID};
+           
+            let delReq = new Request ("api/apiReceiver.php",{
+                method: "DELETE",
+                body: JSON.stringify(delID),
+                headers: {"Content-Type": "application/json; charset=UTF-8"}
+            });
+            console.log(delReq);
+            fetch(delReq)
+                .then(resp => resp.json())
+                .then(deleted => {
+                    console.log(deleted);
+                });
             
             
-        // })
-
-        //appenda till basDiv? -- går ej för då får man hela diven 
-        //leta upp infoboxen med respektive id, och appenda direkt i den // this eller super i detta fall?
+        });
         basDiv.find(".namnBox").append(datumDiv);
         basDiv.find(".infoBox").append(trashCan);
         return basDiv;
