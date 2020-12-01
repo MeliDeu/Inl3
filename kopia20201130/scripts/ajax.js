@@ -97,8 +97,23 @@ function getPalette(){
             .then(resurs => {
               let nPal = new PaletteSaved(nyPalette);
               if(sortSwitcher == true){
+                //if sorted by date
                 $("#ownPalettes").prepend(nPal.htmlRender());
+              } else {
+                //if sorted by name
+                $("#ownPalettes").empty();
+                sortSwitch();
+                palettes.forEach(palette => {
+                  if(loggedIn == palette.creatorID){
+                    let nPal = new PaletteSaved(palette);
+                    $("#ownPalettes").append(nPal.htmlRender());
+                  }
+                });
               }
+              $(`#pal_${nyPalette.id}`).addClass("lightenUp");
+              setTimeout(function(){
+                $(`#pal_${nyPalette.id}`).removeClass("lightenUp");
+              },1000)
             });
         });
   });
