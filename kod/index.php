@@ -1,6 +1,5 @@
 <?php error_reporting(-1);?>
 
-<!-- hejsan svejsan -->
 
 <?php
     session_start();
